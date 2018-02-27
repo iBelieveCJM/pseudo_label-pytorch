@@ -257,7 +257,8 @@ def supNet():
     unlabeled_file = 'list_txt/mnist_unlabeled_list.txt';
     
     from list_txt.make_list import make_list
-    make_list(200, labeled_file, unlabeled_file);
+    n_each_class = 200; # mnist has 10 classes, so the number of data is "n_each_class*10"
+    make_list(n_each_class, labeled_file, unlabeled_file);
     
     ## make the dataloader ##
     data_transform = transforms.Compose([
@@ -268,9 +269,9 @@ def supNet():
     trainset = MnistDataset(labeled_file, '/home/jiaming2/data/MnistData', transform=data_transform);
     trainloader = DataLoader(trainset, batch_size=batch_size, shuffle=True, num_workers=4);
     
-    batch_size = 256;
-    trainset2 = MnistDataset(unlabeled_file, '/home/jiaming2/data/MnistData',transform=data_transform);
-    trainloader2 = DataLoader(trainset2, batch_size=batch_size, shuffle=True, num_workers=4);
+    #batch_size = 256;
+    #trainset2 = MnistDataset(unlabeled_file, '/home/jiaming2/data/MnistData',transform=data_transform);
+    #trainloader2 = DataLoader(trainset2, batch_size=batch_size, shuffle=True, num_workers=4);
     
     batch_size = 100;
     testset = MnistDataset('list_txt/testing.txt', '/home/jiaming2/data/MnistData', transform=data_transform);

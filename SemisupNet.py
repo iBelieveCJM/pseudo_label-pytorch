@@ -217,7 +217,7 @@ def train(net, trainloader, trainset, criterian):
     '''
     learning_rate = 1e-4;
     epoches = 500;
-    n_labeled = 100;
+    n_labeled = 100;  # the number of labeled data in a batch, that is, the batch_size of labeled data
     
     #optimizer = optim.SGD(net.parameters(), lr=learning_rate);
     optimizer = optim.Adam(net.parameters());   # lr=1e-3
@@ -287,14 +287,15 @@ def SemisupNet():
     unlabeled_file = 'list_txt/mnist_unlabeled_list.txt';
     
     from list_txt.make_list import make_list
-    make_list(712, labeled_file, unlabeled_file);
+    n_each_class = 712; # mnist has 10 classes, so the number of data is "n_each_class*10"
+    make_list(n_each_class, labeled_file, unlabeled_file);
     
     ## make the dataloader ##
     data_transform = transforms.Compose([
         transforms.ToTensor()
     ]);
     
-    batch_size = 356;
+    batch_size = 356; # the batch_size of labeled data is 100, that of unlabeled data is 256
     trainset = MnistDataset(labeled_file, data_dir, transform=data_transform);
     trainloader = DataLoader(trainset, batch_size=batch_size, shuffle=True, num_workers=4);
     
