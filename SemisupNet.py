@@ -169,7 +169,7 @@ class Lenet(nn.Module):
 def test(net, testset, testloader, criterian, batch_size, n_class, log_file):
     '''Testing the network
     '''
-    net.eval()
+    net.eval();
     
     testloss, testacc = 0., 0.
     class_correct = list(0. for i in range(10))
@@ -232,6 +232,7 @@ def train(net, trainloader, trainset, criterian):
         running_acc = 0;
 
         for (img, label) in trainloader:
+            # spilt the data into labeled data and unlabeled data
             img = var(img).cuda();
             label = var(label).cuda();
             #labeled_data
@@ -250,13 +251,15 @@ def train(net, trainloader, trainset, criterian):
                 if iteration > T2:
                     alpha = af;
             #end_if
+            
+            # make the pseudo label for unlabeled data
             output2 = net(img2);
             _, label2 = torch.max(output2, 1);
             
             #semi-supervised loss
             loss = criterian(output1, label1) + alpha * criterian(output2, label2);
             
-            # backward pass
+            # backward pass and update the net
             loss.backward();
             optimizer.step();
             
@@ -264,16 +267,18 @@ def train(net, trainloader, trainset, criterian):
             running_loss += loss.data[0];
             _, predict = torch.max(output1, 1);
             correct_num = (predict == label1).sum();
-            running_acc += correct_num.data[0];
+            running_acc += correct_num.data[0];  # the accuracy of labeled data
         #end_for
 
         running_loss /= len(trainset);
-        running_acc /= len(trainset);
+        running_acc /= len(trainset);   # the running_acc is wrong
         print('Train[%d / %d] loss: %.5f, Acc: %.2f' % (iteration+1, epoches, running_loss, 100*running_acc));
     
     #end_for
+    
+#end_func
 
-def example2():
+def SemisupNet():
     '''main function
     '''
     ## make the list ##
@@ -293,9 +298,9 @@ def example2():
     trainset = MnistDataset(labeled_file, data_dir, transform=data_transform);
     trainloader = DataLoader(trainset, batch_size=batch_size, shuffle=True, num_workers=4);
     
-    batch_size = 256;
-    trainset2 = MnistDataset(unlabeled_file, data_dir, transform=data_transform);
-    trainloader2 = DataLoader(trainset2, batch_size=batch_size, shuffle=True, num_workers=4);
+    #batch_size = 256;
+    #trainset2 = MnistDataset(unlabeled_file, data_dir, transform=data_transform);
+    #trainloader2 = DataLoader(trainset2, batch_size=batch_size, shuffle=True, num_workers=4);
     
     batch_size = 100;
     testset = MnistDataset('list_txt/testing.txt', data_dir, transform=data_transform);
@@ -310,10 +315,10 @@ def example2():
     ## train the network ##
     train(net, trainloader, trainset, criterian);
     
-    ## test the network ##
+    ## test the network and log ##
     test(net, testset, testloader, criterian, batch_size, n_class=10, log_file='log/example2.log');
 
 #end_func
 
 if __name__ == '__main__':
-    example2();
+    SemisupNet();

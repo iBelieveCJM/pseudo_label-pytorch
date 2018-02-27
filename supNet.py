@@ -166,7 +166,7 @@ class Lenet(nn.Module):
 #end_class
 
 def test(net, testset, testloader, criterian, batch_size, n_class, log_file):
-    '''Training the network
+    '''Testing the network
     '''
     net.eval()
     
@@ -212,6 +212,8 @@ def test(net, testset, testloader, criterian, batch_size, n_class, log_file):
 #end_func
 
 def train(net, trainloader, trainset, criterian):
+    '''Training the network
+    '''
     learning_rate = 1e-3;
     epoches = 200;
     
@@ -229,7 +231,7 @@ def train(net, trainloader, trainset, criterian):
             optimizer.zero_grad();
             output = net(img);
             loss = criterian(output, label);
-            # backward pass
+            # backward pass and update the net
             loss.backward();
             optimizer.step();
             # compute the training loss and training Accuracy
@@ -244,8 +246,10 @@ def train(net, trainloader, trainset, criterian):
         print('Train[%d / %d] loss: %.5f, Acc: %.2f' % (iteration+1, epoches, running_loss, 100*running_acc));
     
     #end_for
+    
+#end_func
 
-def example1():
+def supNet():
     '''main function
     '''
     ## make the list ##
@@ -287,4 +291,4 @@ def example1():
 #end_func
 
 if __name__ == '__main__':
-    example1();
+    supNet();

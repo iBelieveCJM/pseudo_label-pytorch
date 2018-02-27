@@ -129,3 +129,23 @@ Accuracy of     6 : 97 %
 Accuracy of     7 : 97 %
 Accuracy of     8 : 97 %
 Accuracy of     9 : 96 %
+
+-------------------
+simpleNet
+n_labeled: 2000
+n_unlabeled: 5120
+lr = 1e-3
+optim: Adam
+epcohs: 500
+
+Test: Loss: 0.22499, Acc: 95.67 %
+Accuracy of     0 : 98 %
+Accuracy of     1 : 98 %
+Accuracy of     2 : 94 %
+Accuracy of     3 : 94 %
+Accuracy of     4 : 95 %
+Accuracy of     5 : 94 %
+Accuracy of     6 : 96 %
+Accuracy of     7 : 93 %
+Accuracy of     8 : 94 %
+Accuracy of     9 : 93 %
