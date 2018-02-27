@@ -1,0 +1,131 @@
+
+-------------------
+simpleNet
+n_labeled: 1000
+n_unlabeled: 2560
+lr = 1e-2
+
+Test: Loss: 0.39207, Acc: 92.64 %
+Accuracy of     0 : 97 %
+Accuracy of     1 : 98 %
+Accuracy of     2 : 91 %
+Accuracy of     3 : 91 %
+Accuracy of     4 : 91 %
+Accuracy of     5 : 89 %
+Accuracy of     6 : 92 %
+Accuracy of     7 : 92 %
+Accuracy of     8 : 88 %
+Accuracy of     9 : 90 %
+
+-------------------
+simpleNet
+n_labeled: 1000
+n_unlabeled: 2560
+lr = 1e-2
+
+Test: Loss: 0.35384, Acc: 92.59 %
+Accuracy of     0 : 96 %
+Accuracy of     1 : 97 %
+Accuracy of     2 : 90 %
+Accuracy of     3 : 90 %
+Accuracy of     4 : 93 %
+Accuracy of     5 : 87 %
+Accuracy of     6 : 94 %
+Accuracy of     7 : 94 %
+Accuracy of     8 : 89 %
+Accuracy of     9 : 91 %
+
+-------------------
+simpleNet
+n_labeled: 2000
+n_unlabeled: 5120
+lr = 1e-2
+
+Test: Loss: 0.25001, Acc: 94.74 %
+Accuracy of     0 : 97 %
+Accuracy of     1 : 98 %
+Accuracy of     2 : 93 %
+Accuracy of     3 : 94 %
+Accuracy of     4 : 94 %
+Accuracy of     5 : 93 %
+Accuracy of     6 : 95 %
+Accuracy of     7 : 93 %
+Accuracy of     8 : 93 %
+Accuracy of     9 : 91 %
+
+-------------------
+LeNet
+n_labeled: 1000
+n_unlabeled: 2560
+lr = 1e-3
+
+Test: Loss: 0.19370, Acc: 96.90 %
+Accuracy of     0 : 98 %
+Accuracy of     1 : 98 %
+Accuracy of     2 : 95 %
+Accuracy of     3 : 96 %
+Accuracy of     4 : 97 %
+Accuracy of     5 : 97 %
+Accuracy of     6 : 97 %
+Accuracy of     7 : 96 %
+Accuracy of     8 : 95 %
+Accuracy of     9 : 96 %
+
+-------------------
+LeNet
+n_labeled: 2000
+n_unlabeled: 5120
+lr = 1e-4
+optim: SGD
+
+Test: Loss: 0.09651, Acc: 97.48 %
+Accuracy of     0 : 98 %
+Accuracy of     1 : 99 %
+Accuracy of     2 : 96 %
+Accuracy of     3 : 97 %
+Accuracy of     4 : 98 %
+Accuracy of     5 : 97 %
+Accuracy of     6 : 97 %
+Accuracy of     7 : 96 %
+Accuracy of     8 : 96 %
+Accuracy of     9 : 95 %
+
+-------------------
+LeNet
+n_labeled: 2000
+n_unlabeled: 5120
+lr = 1e-4
+optim: SGD
+epcohs: 600
+
+Test: Loss: 0.12108, Acc: 97.16 %
+Accuracy of     0 : 99 %
+Accuracy of     1 : 99 %
+Accuracy of     2 : 96 %
+Accuracy of     3 : 97 %
+Accuracy of     4 : 97 %
+Accuracy of     5 : 96 %
+Accuracy of     6 : 97 %
+Accuracy of     7 : 95 %
+Accuracy of     8 : 96 %
+Accuracy of     9 : 94 %
+
+-------------------
+LeNet
+n_labeled: 2000
+n_unlabeled: 5120
+lr = 1e-3
+optim: Adam
+epcohs: 500
+
+Test: Loss: 0.18695, Acc: 97.53 %
+Accuracy of     0 : 98 %
+Accuracy of     1 : 99 %
+Accuracy of     2 : 96 %
+Accuracy of     3 : 97 %
+Accuracy of     4 : 97 %
+Accuracy of     5 : 97 %
+Accuracy of     6 : 97 %
+Accuracy of     7 : 97 %
+Accuracy of     8 : 97 %
+Accuracy of     9 : 96 %
