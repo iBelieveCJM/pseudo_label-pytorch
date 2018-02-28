@@ -212,12 +212,13 @@ def test(net, testset, testloader, criterian, batch_size, n_class, log_file):
     
 #end_func
 
-def train(net, trainloader, trainset, criterian):
+def train(net, trainloader, criterian, n_labeled, labeled_bs):
     '''Training the network
+    n_labeled: the number of labeled_data
+    labeled_bs: the batch size of labeled_data
     '''
     learning_rate = 1e-4;
     epoches = 500;
-    n_labeled = 100;  # the number of labeled data in a batch, that is, the batch_size of labeled data
     
     #optimizer = optim.SGD(net.parameters(), lr=learning_rate);
     optimizer = optim.Adam(net.parameters());   # lr=1e-3
@@ -236,10 +237,10 @@ def train(net, trainloader, trainset, criterian):
             img = var(img).cuda();
             label = var(label).cuda();
             #labeled_data
-            img1 = img[:n_labeled,:,:,:];
-            label1 = label[:n_labeled];
+            img1 = img[:labeled_bs,:,:,:];
+            label1 = label[:labeled_bs];
             #unlabeled_data
-            img2 = img[n_labeled:,:,:,:];
+            img2 = img[labeled_bs:,:,:,:];
             
             # labeled forward pass
             optimizer.zero_grad();
@@ -269,9 +270,9 @@ def train(net, trainloader, trainset, criterian):
             correct_num = (predict == label1).sum();
             running_acc += correct_num.data[0];  # the accuracy of labeled data
         #end_for
-
-        running_loss /= len(trainset);
-        running_acc /= len(trainset);   # the running_acc is wrong
+        
+        running_loss /= n_labeled;
+        running_acc /= n_labeled;
         print('Train[%d / %d] loss: %.5f, Acc: %.2f' % (iteration+1, epoches, running_loss, 100*running_acc));
     
     #end_for
@@ -287,7 +288,7 @@ def SemisupNet():
     unlabeled_file = 'list_txt/mnist_unlabeled_list.txt';
     
     from list_txt.make_list import make_list
-    n_each_class = 712; # mnist has 10 classes, so the number of data is "n_each_class*10"
+    n_each_class = 356; # mnist has 10 classes, so the number of data (labeled + unlabeled) is "n_each_class*10"
     make_list(n_each_class, labeled_file, unlabeled_file);
     
     ## make the dataloader ##
@@ -308,16 +309,16 @@ def SemisupNet():
     testloader = DataLoader(testset, batch_size=batch_size, shuffle=True, num_workers=4);
     
     ## set the network ##
-    net = SimpleNet();
-    #net = Lenet();
+    #net = SimpleNet();
+    net = Lenet();
     net.cuda();  # move a model to GPU before contructing a optimizer
     criterian = nn.CrossEntropyLoss(size_average=False);
     
     ## train the network ##
-    train(net, trainloader, trainset, criterian);
+    train(net, trainloader, criterian, n_labeled=1000, labeled_bs=100);
     
     ## test the network and log ##
-    test(net, testset, testloader, criterian, batch_size, n_class=10, log_file='log/example2.log');
+    test(net, testset, testloader, criterian, batch_size, n_class=10, log_file='log/semisupNet.log');
 
 #end_func
 
