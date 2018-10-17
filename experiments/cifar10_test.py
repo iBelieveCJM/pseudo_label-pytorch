@@ -57,7 +57,7 @@ def parameters():
         'data_seed': 10,
     }
 
-    return {**defaults}
+    return defaults
 
 def run(base_batch_size, base_labeled_batch_size, base_lr, n_labels, data_seed, is_parallel, **kwargs):
     if is_parallel and torch.cuda.is_available():
