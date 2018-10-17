@@ -74,16 +74,6 @@ class RandomTranslateWithReflect:
 
         return new_image
 
-class TransformTwice:
-
-    def __init__(self, transform):
-        self.transform = transform
-
-    def __call__(self, inp):
-        out1 = self.transform(inp)
-        out2 = self.transform(inp)
-        return out1, out2
-
 def relabel_dataset(dataset, labels):
     unlabeled_idxs = []
     for idx in range(len(dataset.imgs)):
@@ -125,24 +115,6 @@ class TwoStreamBatchSampler(Sampler):
             for (primary_batch, secondary_batch)
             in zip(grouper(primary_iter, self.primary_batch_size),
                    grouper(secondary_iter, self.secondary_batch_size))
-        )
-
-    def __len__(self):
-        return len(self.primary_indices) // self.primary_batch_size
-
-class OneStreamBatchSampler(Sampler):
-    """Iterate one set of indices
-    """
-    def __init__(self, primary_indices, batch_size):
-        self.primary_indices = primary_indices
-        self.primary_batch_size = batch_size
-        assert len(self.primary_indices) >= self.primary_batch_size > 0
-
-    def __iter__(self):
-        primary_iter = iterate_once(self.primary_indices)
-        return (
-            primary_batch for primary_batch 
-            in grouper(primary_iter, self.primary_batch_size)
         )
 
     def __len__(self):
