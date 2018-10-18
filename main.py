@@ -83,8 +83,7 @@ def create_lr_scheduler(optimizer, config):
     return scheduler
 
 def main(config):
-    with SummaryWriter(comment='_{}_{}_{}'.format(
-                       config.arch,config.dataset,config.labeled_batch_size)) as writer:
+    with SummaryWriter(comment='_{}_{}'.format(config.arch,config.dataset)) as writer:
         dataset_config = datasets.cifar10() if config.dataset=='cifar10' else datasets.cifar100()
         num_classes = dataset_config.pop('num_classes')
         train_loader, eval_loader = create_data_loaders(**dataset_config, config=config)
