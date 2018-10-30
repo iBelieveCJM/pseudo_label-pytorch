@@ -55,7 +55,7 @@ def create_loss_fn(config):
         # for pytorch 0.4.0
         criterion = nn.CrossEntropyLoss(ignore_index=NO_LABEL, reduce=False)
         # for pytorch 0.4.1
-        criterion = nn.CrossEntropyLoss(ignore_index=NO_LABEL, reduction='none')
+        #criterion = nn.CrossEntropyLoss(ignore_index=NO_LABEL, reduction='none')
     return criterion
 
 def create_optim(params, config):
