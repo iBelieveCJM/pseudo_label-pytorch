@@ -10,10 +10,22 @@ The repository implement a semi-supervised method for Deep Neural Networks, the 
 - tensorboardX (for log)
 - tensorflow (for visualization)
 
+## To prepare the data:
+```shell
+bash data-local/bin/prepare_cifar10.sh
+```
+
 ## To run the code:
 ```shell
 python -m experiments.cifar10_test
 ```
+
+## Visualization:
+Make sure you have installed the tensorflow for tensorboard
+```shell
+tensorboard --logdir runs
+```
+
 
 ## Code Reference
 

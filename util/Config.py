@@ -40,7 +40,7 @@ def create_parser():
     parser.add_argument('--lr', '--learning-rate', default=0.1, type=float,
                         metavar='LR', help='max learning rate')
     parser.add_argument('--loss', default="mse", type=str, metavar='TYPE',
-                        choices=['mse', 'soft'])
+                        choices=['soft'])
     parser.add_argument('--optim', default="sgd", type=str, metavar='TYPE',
                         choices=['sgd', 'adam'])
     parser.add_argument('--momentum', default=0.9, type=float, metavar='M',

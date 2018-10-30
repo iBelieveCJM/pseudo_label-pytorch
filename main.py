@@ -51,9 +51,10 @@ def create_data_loaders(train_transform,
     return train_loader, eval_loader
 
 def create_loss_fn(config):
-    if config.loss == 'mse':
-        criterion = nn.mseloss()
-    elif config.loss == 'soft':
+    if config.loss == 'soft':
+        # for pytorch 0.4.0
+        criterion = nn.CrossEntropyLoss(ignore_index=NO_LABEL, reduce=False)
+        # for pytorch 0.4.1
         criterion = nn.CrossEntropyLoss(ignore_index=NO_LABEL, reduction='none')
     return criterion
 
